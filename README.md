@@ -10,7 +10,7 @@ Developed and Tested on Zabbix 3.4.3 (PHP 5.4.16) and Veeam Backup & Replication
 
 Discovered items:
 * Backup jobs and agent backup jobs:
-  * Last job result/duration/date (for each discovered job): ``
+  * Last job result/duration/date (for each discovered job)
 * Replication jobs:
   * Last SUCCESSFUL job result/date (for each discovered job)
 * Backup repositories:
