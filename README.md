@@ -33,9 +33,9 @@ Triggers rise:
 1. Import template `zbx_export_templates.xml` to Zabbix
 1. Assign the template and host macros to Veeam host:
 
-   `{$VEEAM_URL} => http://username:password@ip_address:9399/api/`
+   `{$VEEAM_URL} => http://username:password@veeam_ip:9399/api/`
    
-   where `username` and `password` are for account on Veeam host, `ip_address` is Veeam host.
+   where `username` and `password` are for account on Veeam host, `veeam_ip` is Veeam host.
    
 1. Create global or host macros `{$VEEAM_REPLICA_FAILED_TIME}`. For example, I use '6h' for it, so my replication jobs rise trigger when last successful replica was more than 6 hours ago.
 1. Wait for items discovery.
