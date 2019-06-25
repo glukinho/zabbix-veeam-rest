@@ -30,8 +30,9 @@ Triggers rise:
 ## Installation
 1. Copy `zabbix-veeam.php` to Zabbix server (or proxy) here: `/usr/lib/zabbix/externalscripts/`
 1. `chown +x /usr/lib/zabbix/externalscripts/zabbix-veeam.php`
-1. Import template `zbx_export_templates.xml` to Zabbix
-1. Assign the template and host macros to Veeam host:
+1. Import `zbx_export_templates.xml` to Zabbix
+1. Assign the template `Template Veeam REST` to Veeam host.
+1. Assign host macros to Veeam host:
 
    `{$VEEAM_URL} => http://username:password@veeam_ip:9399/api/`
    
