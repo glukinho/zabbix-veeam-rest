@@ -39,3 +39,6 @@ Triggers rise:
    
 1. Create global or host macros `{$VEEAM_REPLICA_FAILED_TIME}`. For example, I use '6h' for it, so my replication jobs rise trigger when last successful replica was more than 6 hours ago.
 1. Wait for items discovery.
+
+## Logging
+By default, it writes some logs to `/tmp/zabbix-veeam.log`  (passwords are not logged). You can change it with `$debug_file = `  inside. To turn off logging, use `$debug = false;`
