@@ -6,7 +6,7 @@ It uses Veeam REST API: https://helpcenter.veeam.com/docs/backup/rest/overview.h
 
 REST queries are sent from Zabbix server (or proxy), no scripts or zabbix agent setup is needed on Veeam host itself.
 
-Developed and Tested on Zabbix 3.4.3 (PHP 5.4.16) and Veeam Backup & Replication 9.5u4.
+Developed and Tested on Zabbix 3.4.3 and Veeam Backup & Replication 9.5u4.
 
 Discovered items:
 * Backup jobs and agent backup jobs:
@@ -25,7 +25,7 @@ Triggers rise:
 ## Pre-requisites
 * Veeam Backup & Replication with Enterprise Manager installed. Make sure you can reach REST API: http://<veeam_ip>:9399/api/
 * Windows user with appropriate rights on Veeam host (Administrators group, I suppose) with known password.
-* PHP and php-curl on Zabbix Server or proxy (I believe you have it already).
+* PHP (tested on 5.4.16) + php-curl + php-xml on Zabbix Server (or proxy).
 
 ## Installation
 1. Copy `zabbix-veeam.php` to Zabbix server (or proxy) here: `/usr/lib/zabbix/externalscripts/`
