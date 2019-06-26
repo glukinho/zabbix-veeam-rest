@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2019-06-25T14:18:52Z</date>
+    <date>2019-06-26T12:45:32Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -556,7 +556,14 @@
                     <filter>
                         <evaltype>0</evaltype>
                         <formula/>
-                        <conditions/>
+                        <conditions>
+                            <condition>
+                                <macro>{#REPLICAJOBSCHEDULE}</macro>
+                                <value>@Veeam REPLICAJOBSCHEDULE</value>
+                                <operator>8</operator>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
                     </filter>
                     <lifetime>30d</lifetime>
                     <description/>
@@ -704,7 +711,7 @@
                     </item_prototypes>
                     <trigger_prototypes>
                         <trigger_prototype>
-                            <expression>{Template Veeam REST:veeam.replica.job.last.successful.date[{#REPLICAJOBNAME}].fuzzytime({$VEEAM_REPLICA_FAILED_TIME})}=0</expression>
+                            <expression>{Template Veeam REST:veeam.replica.job.last.successful.date[{#REPLICAJOBNAME}].fuzzytime({#REPLICAJOBTIME})}=0</expression>
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Veeam Replica job {#REPLICAJOBNAME} - last successful job was &gt;{$VEEAM_REPLICA_FAILED_TIME} ago</name>

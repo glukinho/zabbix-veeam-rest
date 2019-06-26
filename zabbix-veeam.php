@@ -2,7 +2,7 @@
 <?php
 
 // zabbx-veeam-rest
-// ver 0.2
+// ver 0.3
 // glukinho
 
 const LOCAL_TIMEZONE = "Europe/Moscow";
@@ -258,7 +258,15 @@ switch ($action) {
 		$discovery->data = array();
 		
 		foreach ($data->Entities->Jobs->Jobs as $j) {
-			$replica_job = (object) [ '{#REPLICAJOBNAME}' => $j->Name ];
+			libxml_use_internal_errors(TRUE);
+			
+			$html = new DOMDocument;
+			$html->loadHTML($j->Description);
+			$vars = $html->getElementsByTagName('zabbix_replica_time');
+
+			$zabbix_replica_time = $vars->length > 0 ? $vars->item(0)->nodeValue : '{$VEEAM_REPLICA_FAILED_TIME}';
+			
+			$replica_job = (object) [ '{#REPLICAJOBNAME}' => $j->Name, '{#REPLICAJOBTIME}' => $zabbix_replica_time, '{#REPLICAJOBSCHEDULE}' => $j->ScheduleConfigured ? 'true' : 'false' ];
 			$discovery->data[] = $replica_job;
 		}
 		
