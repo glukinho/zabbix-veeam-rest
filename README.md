@@ -41,5 +41,19 @@ Triggers rise:
 1. Create global or host macros `{$VEEAM_REPLICA_FAILED_TIME}`. For example, I use '6h' for it, so my replication jobs rise trigger when last successful replica was more than 6 hours ago.
 1. Wait for items discovery.
 
+## Backup and agent jobs
+Trigger rises if last job was not successful.
+
+## Replica jobs
+Trigger rise if last successful job was over `{$VEEAM_REPLICA_FAILED_TIME}` ago (you can set it yourself using global or host macros).
+
+You can adjust this time on per-job basis using this hack: just add tag `<zabbix_replica_time>...</zabbix_replica_time>` to job's description inside Veeam: http://prntscr.com/o6y75x
+
+For example, to rise trigger if the job remains unsuccessful for 24 hours, add the tag: `<zabbix_replica_time>24h</zabbix_replica_time>`
+
+Replica jobs not having the tag will get alert time from macros `{$VEEAM_REPLICA_FAILED_TIME}`.
+
+Replica jobs without schedule (which are not planned to start automatically) are not discovered to avoid trash alerts in Zabbix.
+
 ## Logging
 By default, it writes some logs to `/tmp/zabbix-veeam.log`  (passwords are not logged). You can change it with `$debug_file = `  inside. To turn off logging, use `$debug = false;`
