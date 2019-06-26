@@ -17,11 +17,6 @@ Discovered items:
   * Total capacity
   * Free space, in Gb and %
 
-Triggers rise:
-* Backup jobs and agent jobs: last job was not successful
-* Replication jobs: last successful job was more than `{$VEEAM_REPLICA_FAILED_TIME}` ago (you can set it yourself using macros)
-* Repositories: free space less than 10%.
-
 ## Pre-requisites
 * Veeam Backup & Replication with Enterprise Manager installed. Make sure you can reach REST API: http://<veeam_ip>:9399/api/
 * Windows user with appropriate rights on Veeam host (Administrators group, I suppose) with known password.
@@ -45,7 +40,7 @@ Triggers rise:
 Trigger rises if last job was not successful.
 
 ## Replica jobs
-Trigger rise if last successful job was over `{$VEEAM_REPLICA_FAILED_TIME}` ago (you can set it yourself using global or host macros).
+Trigger rises if last successful job was over `{$VEEAM_REPLICA_FAILED_TIME}` ago (you can set it yourself using global or host macros).
 
 You can adjust this time on per-job basis using this hack: just add tag `<zabbix_replica_time>...</zabbix_replica_time>` to job's description inside Veeam: http://prntscr.com/o6y75x
 
@@ -54,6 +49,9 @@ For example, to rise trigger if the job remains unsuccessful for 24 hours, add t
 Replica jobs not having the tag will get alert time from macros `{$VEEAM_REPLICA_FAILED_TIME}`.
 
 Replica jobs without schedule (which are not planned to start automatically) are not discovered to avoid trash alerts in Zabbix.
+
+## Repositories
+Trigger rises if free space on the repository is less than 10%.
 
 ## Logging
 By default, it writes some logs to `/tmp/zabbix-veeam.log`  (passwords are not logged). You can change it with `$debug_file = `  inside. To turn off logging, use `$debug = false;`
