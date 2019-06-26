@@ -42,7 +42,7 @@ Trigger rises if last job was not successful.
 ## Replica jobs
 Trigger rises if last successful job was over `{$VEEAM_REPLICA_FAILED_TIME}` ago (you can set it yourself using global or host macros).
 
-You can adjust this time on per-job basis using this hack: just add tag `<zabbix_replica_time>...</zabbix_replica_time>` to job's description inside Veeam: http://prntscr.com/o6y75x
+You can adjust this time on per-job basis using this hack: just add tag `<zabbix_replica_time>...</zabbix_replica_time>` to job's description inside Veeam: http://prntscr.com/o6ymc8
 
 For example, to rise trigger if the job remains unsuccessful for 24 hours, add the tag: `<zabbix_replica_time>24h</zabbix_replica_time>`
 
