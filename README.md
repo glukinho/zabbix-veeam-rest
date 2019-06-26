@@ -29,7 +29,7 @@ Discovered items:
 1. Assign the template `Template Veeam REST` to Veeam host.
 1. Assign host macros to Veeam host:
 
-   `{$VEEAM_URL} => http://username:password@veeam_ip:9399/api/`
+   `{$VEEAM_URL}` => `http://username:password@veeam_ip:9399/api/`
    
    where `username` and `password` are for account on Veeam host, `veeam_ip` is Veeam host.
    
