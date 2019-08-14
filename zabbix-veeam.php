@@ -182,7 +182,7 @@ switch ($action) {
 		
 		
 	case "discoverBackupJobs":
-		$url_var = urlencode("query?type=Job&filter=JobType==Backup&format=entities");
+		$url_var = urlencode("query?type=Job&filter=JobType==Backup,JobType==BackupCopy&format=entities");
 		$data = curl($url_str . $url_var, $RestSvcSessionId);
 		
 		// print_r($data);
@@ -191,7 +191,7 @@ switch ($action) {
 		$discovery->data = array();
 		
 		foreach ($data->Entities->Jobs->Jobs as $b) {
-			$backup = (object) [ '{#BACKUPJOBNAME}' => $b->Name /*, '{#BACKUPUID}' => $b->UID*/ ];
+			$backup = (object) [ '{#BACKUPJOBNAME}' => $b->Name , '{#BACKUPJOBTYPE}' => $b->JobType ];
 			$discovery->data[] = $backup;
 		}
 		

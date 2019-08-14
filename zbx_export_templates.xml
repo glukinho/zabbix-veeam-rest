@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2019-06-26T12:45:32Z</date>
+    <date>2019-08-14T16:51:08Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -465,7 +465,7 @@
                             </master_item_prototype>
                         </item_prototype>
                         <item_prototype>
-                            <name>Veeam Backup job {#BACKUPJOBNAME} last job info</name>
+                            <name>Veeam {#BACKUPJOBTYPE} job {#BACKUPJOBNAME} last job info</name>
                             <type>10</type>
                             <snmp_community/>
                             <snmp_oid/>
@@ -524,6 +524,22 @@
                             <dependencies/>
                             <tags/>
                         </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template Veeam REST:veeam.backup.job.last.date[{#BACKUPJOBNAME}].fuzzytime({$VEEAM_BACKUP_NODATA})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>Veeam Backup job {#BACKUPJOBNAME} - last job was &gt;{$VEEAM_BACKUP_NODATA} ago</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
                     </trigger_prototypes>
                     <graph_prototypes/>
                     <host_prototypes/>
@@ -559,7 +575,7 @@
                         <conditions>
                             <condition>
                                 <macro>{#REPLICAJOBSCHEDULE}</macro>
-                                <value>@Veeam REPLICAJOBSCHEDULE</value>
+                                <value>true</value>
                                 <operator>8</operator>
                                 <formulaid>A</formulaid>
                             </condition>
