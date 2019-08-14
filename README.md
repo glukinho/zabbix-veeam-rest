@@ -9,7 +9,7 @@ REST queries are sent from Zabbix server (or proxy), no scripts or zabbix agent 
 Developed and Tested on Zabbix 3.4.3 and Veeam Backup & Replication 9.5u4.
 
 Discovered items:
-* Backup jobs and agent backup jobs:
+* Backup jobs, backup copy jobs and agent backup jobs:
   * Last job result/duration/date (for each discovered job)
 * Replication jobs:
   * Last SUCCESSFUL job result/date (for each discovered job)
@@ -33,11 +33,17 @@ Discovered items:
    
    where `username` and `password` are for account on Veeam host, `veeam_ip` is Veeam host.
    
+1. Create global or host macros `{$VEEAM_BACKUP_NODATA}`. I use '36h' to have trigger risen when the job was not executed for 36 hours.
 1. Create global or host macros `{$VEEAM_REPLICA_FAILED_TIME}`. For example, I use '6h' for it, so my replication jobs rise trigger when last successful replica was more than 6 hours ago.
+1. Create global regular expression:
+    * Name: `Veeam REPLICAJOBSCHEDULE`
+    * Expression type: Character string not included
+    * Expression: `false`
+  
 1. Wait for items discovery.
 
-## Backup and agent jobs
-Trigger rises if last job was not successful.
+## Backup, backup copy and agent jobs
+Trigger rises if last job was not successful or last job was over `{$VEEAM_BACKUP_NODATA}` ago.
 
 ## Replica jobs
 Trigger rises if last successful job was over `{$VEEAM_REPLICA_FAILED_TIME}` ago (you can set it yourself using global or host macros).
