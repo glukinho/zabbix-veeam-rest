@@ -24,7 +24,7 @@ Discovered items:
 
 ## Installation
 1. Copy `zabbix-veeam.php` to Zabbix server (or proxy) here: `/usr/lib/zabbix/externalscripts/`
-1. `chown +x /usr/lib/zabbix/externalscripts/zabbix-veeam.php`
+1. `chmod +x /usr/lib/zabbix/externalscripts/zabbix-veeam.php`
 1. Import `zbx_export_templates.xml` to Zabbix
 1. Assign the template `Template Veeam REST` to Veeam host.
 1. Assign host macros to Veeam host:
