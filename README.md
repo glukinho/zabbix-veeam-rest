@@ -64,9 +64,9 @@ Replica jobs without schedule (which are not planned to start automatically) are
 Trigger rises if free space on the repository is less than 10%.
 
 ## Debug & logging
-You can easily debug the script launching it with 1 as fourth parameter:
+You can easily debug the script by launching it with something as fourth parameter:
 
-`./zabbix-veeam.php <URL> getLastBackupJobInfo <job name> **1**`
+`./zabbix-veeam.php <URL> getLastBackupJobInfo <job name> debug`
 
 It will give all logs (not truncated) to stdout.
 
