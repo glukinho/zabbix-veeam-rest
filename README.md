@@ -66,9 +66,9 @@ Trigger rises if free space on the repository is less than 10%.
 ## Debug & logging
 You can easily debug the script by launching it with something as fourth parameter:
 
-`./zabbix-veeam.php <URL> getLastBackupJobInfo <job name> debug`
+`./zabbix-veeam.php <URL> getLastBackupJobInfo "<job name>" debug`
 
 It will give all logs (not truncated) to stdout.
 
-Of course, you can see logfile too. By default, it writes some logs to `/tmp/zabbix-veeam.log`  (passwords are not logged). You can change it with `$logFile = `  in `AppOptions` class. To turn off logging, use `$logToFile = false;`
+Of course, you can see logfile too. By default, it writes logs to `/tmp/zabbix-veeam.log`  (passwords are not logged). You can change it with `$logFile = `  in `AppOptions` class. To turn off logging, use `$logToFile = false;`
 
