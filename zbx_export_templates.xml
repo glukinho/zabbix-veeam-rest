@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2019-08-14T16:51:08Z</date>
+    <date>2021-01-16T21:41:43Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -228,7 +228,7 @@
                             <history>1d</history>
                             <trends>0</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>4</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -474,7 +474,7 @@
                             <history>1d</history>
                             <trends>0</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>4</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -692,7 +692,7 @@
                             <history>1d</history>
                             <trends>0</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>4</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
@@ -929,7 +929,7 @@
                             <history>3d</history>
                             <trends>0</trends>
                             <status>0</status>
-                            <value_type>1</value_type>
+                            <value_type>4</value_type>
                             <allowed_hosts/>
                             <units/>
                             <snmpv3_contextname/>
