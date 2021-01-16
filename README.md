@@ -1,7 +1,7 @@
 # zabbix-veeam-rest
 Zabbix template and php script for monitoring Veeam B&R jobs and repositories.
 
-## New!
+## Now supports Veeam B&R 10 with HTTPS
 The script was re-created from scratch, now it supports Veeam 10 with HTTPS API, implements OOP logic and good logging.
 
 ## How it works
