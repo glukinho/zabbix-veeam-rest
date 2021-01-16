@@ -1,12 +1,15 @@
 # zabbix-veeam-rest
 Zabbix template and php script for monitoring Veeam B&R jobs and repositories.
 
+## New!
+The script was re-created from scratch, now it supports Veeam 10 with HTTPS API, implements OOP logic and good logging.
+
 ## How it works
-It uses Veeam REST API: https://helpcenter.veeam.com/docs/backup/rest/overview.html?ver=95u4. JSON mode only is now supported, XML is not.
+It uses Veeam REST API: https://helpcenter.veeam.com/docs/backup/rest/overview.html?ver=100. JSON mode only is now supported, XML is not.
 
 REST queries are sent from Zabbix server (or proxy), no scripts or zabbix agent setup is needed on Veeam host itself.
 
-Developed and Tested on Zabbix 3.4.3 and Veeam Backup & Replication 9.5u4.
+Developed and tested on **Zabbix 3.4.15** and **Veeam Backup & Replication 10**.
 
 Discovered items:
 * Backup jobs, backup copy jobs and agent backup jobs:
@@ -18,20 +21,21 @@ Discovered items:
   * Free space, in Gb and %
 
 ## Pre-requisites
-* Veeam Backup & Replication with Enterprise Manager installed. Make sure you can reach REST API: http://<veeam_ip>:9399/api/
+* Veeam Backup & Replication with Enterprise Manager installed. Make sure you can reach REST API: `https://<veeam_ip>:9399/api/`
 * Windows user with appropriate rights on Veeam host (Administrators group, I suppose) with known password.
 * PHP (tested on 5.4.16) + php-curl + php-xml on Zabbix Server (or proxy).
 
 ## Installation
 1. Copy `zabbix-veeam.php` to Zabbix server (or proxy) here: `/usr/lib/zabbix/externalscripts/`
 1. `chmod +x /usr/lib/zabbix/externalscripts/zabbix-veeam.php`
+1. Edit options in `AppOptions` class, most likely you need only username and password for Veeam.
 1. Import `zbx_export_templates.xml` to Zabbix
 1. Assign the template `Template Veeam REST` to Veeam host.
 1. Assign host macros to Veeam host:
 
-   `{$VEEAM_URL}` => `http://username:password@veeam_ip:9399/api/`
+   `{$VEEAM_URL}` => `https://<veeam_ip>:9398/api/`
    
-   where `username` and `password` are for account on Veeam host, `veeam_ip` is Veeam host.
+   where `veeam_ip` is Veeam host IP address or hostname.
    
 1. Create global or host macros `{$VEEAM_BACKUP_NODATA}`. I use '36h' to have trigger risen when the job was not executed for 36 hours.
 1. Create global or host macros `{$VEEAM_REPLICA_FAILED_TIME}`. For example, I use '6h' for it, so my replication jobs rise trigger when last successful replica was more than 6 hours ago.
@@ -59,5 +63,12 @@ Replica jobs without schedule (which are not planned to start automatically) are
 ## Repositories
 Trigger rises if free space on the repository is less than 10%.
 
-## Logging
-By default, it writes some logs to `/tmp/zabbix-veeam.log`  (passwords are not logged). You can change it with `$debug_file = `  inside. To turn off logging, use `$debug = false;`
+## Debug & logging
+You can easily debug the script launching it with 1 as fourth parameter:
+
+`./zabbix-veeam.php <URL> getLastBackupJobInfo <job name> **1**`
+
+It will give all logs (not truncated) to stdout.
+
+Of course, you can see logfile too. By default, it writes some logs to `/tmp/zabbix-veeam.log`  (passwords are not logged). You can change it with `$logFile = `  in `AppOptions` class. To turn off logging, use `$logToFile = false;`
+
