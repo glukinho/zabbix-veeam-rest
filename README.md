@@ -21,7 +21,7 @@ Discovered items:
   * Free space, in Gb and %
 
 ## Pre-requisites
-* Veeam Backup & Replication with Enterprise Manager installed. Make sure your Zabbix server/proxy can reach REST API: `https://<veeam_ip>:9399/api/`
+* Veeam Backup & Replication with Enterprise Manager installed. Make sure your Zabbix server/proxy can reach REST API: `https://<veeam_ip>:9398/api/`
 * Windows user with appropriate rights on Veeam host (Administrators group, I suppose) with known password.
 * PHP (tested on 5.4.16) + php-curl + php-xml on Zabbix Server (or proxy).
 
