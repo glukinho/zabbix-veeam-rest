@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <zabbix_export>
     <version>3.4</version>
-    <date>2021-01-16T21:41:43Z</date>
+    <date>2021-08-31T18:57:36Z</date>
     <groups>
         <group>
             <name>Templates</name>
@@ -23,6 +23,9 @@
                 </application>
                 <application>
                     <name>Veeam Backup Jobs</name>
+                </application>
+                <application>
+                    <name>Veeam File Share Backup Jobs</name>
                 </application>
                 <application>
                     <name>Veeam Replica Jobs</name>
@@ -529,6 +532,268 @@
                             <recovery_mode>0</recovery_mode>
                             <recovery_expression/>
                             <name>Veeam Backup job {#BACKUPJOBNAME} - last job was &gt;{$VEEAM_BACKUP_NODATA} ago</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes/>
+                    <host_prototypes/>
+                    <jmx_endpoint/>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Veeam File Share Backup Jobs</name>
+                    <type>10</type>
+                    <snmp_community/>
+                    <snmp_oid/>
+                    <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;discoverFileShareBackupJobs&quot;]</key>
+                    <delay>5m</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port/>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
+                    <lifetime>30d</lifetime>
+                    <description/>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Veeam File Share Backup job {#FILESHAREBACKUPJOBNAME} last job date</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>veeam.filesharebackup.job.last.date[{#FILESHAREBACKUPJOBNAME}]</key>
+                            <delay>0</delay>
+                            <history>90d</history>
+                            <trends>365d</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units>unixtime</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>Veeam File Share Backup Jobs</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>12</type>
+                                    <params>$.EndTimeEpoch</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#FILESHAREBACKUPJOBNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam File Share Backup job {#FILESHAREBACKUPJOBNAME} last job duration</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>veeam.filesharebackup.job.last.duration[{#FILESHAREBACKUPJOBNAME}]</key>
+                            <delay>0</delay>
+                            <history>90d</history>
+                            <trends>365d</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units>s</units>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>Veeam File Share Backup Jobs</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>12</type>
+                                    <params>$.Duration</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#FILESHAREBACKUPJOBNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam File Share Backup job {#FILESHAREBACKUPJOBNAME} last job result</name>
+                            <type>18</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>veeam.filesharebackup.job.last.result[{#FILESHAREBACKUPJOBNAME}]</key>
+                            <delay>0</delay>
+                            <history>90d</history>
+                            <trends>365d</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>Veeam File Share Backup Jobs</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Veeam jobs result</name>
+                            </valuemap>
+                            <logtimefmt/>
+                            <preprocessing>
+                                <step>
+                                    <type>12</type>
+                                    <params>$.ResultNum</params>
+                                </step>
+                            </preprocessing>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#FILESHAREBACKUPJOBNAME}&quot;]</key>
+                            </master_item_prototype>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam File Share Backup job {#FILESHAREBACKUPJOBNAME} last job info</name>
+                            <type>10</type>
+                            <snmp_community/>
+                            <snmp_oid/>
+                            <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#FILESHAREBACKUPJOBNAME}&quot;]</key>
+                            <delay>5m</delay>
+                            <history>90d</history>
+                            <trends>0</trends>
+                            <status>0</status>
+                            <value_type>4</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port/>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>Veeam File Share Backup Jobs</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                            <preprocessing/>
+                            <jmx_endpoint/>
+                            <application_prototypes/>
+                            <master_item_prototype/>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template Veeam REST:veeam.filesharebackup.job.last.result[{#FILESHAREBACKUPJOBNAME}].last()}&gt;0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>Veeam File Share Backup job {#FILESHAREBACKUPJOBNAME} - last job not successful</name>
+                            <correlation_mode>0</correlation_mode>
+                            <correlation_tag/>
+                            <url/>
+                            <status>0</status>
+                            <priority>2</priority>
+                            <description/>
+                            <type>0</type>
+                            <manual_close>0</manual_close>
+                            <dependencies/>
+                            <tags/>
+                        </trigger_prototype>
+                        <trigger_prototype>
+                            <expression>{Template Veeam REST:veeam.filesharebackup.job.last.date[{#FILESHAREBACKUPJOBNAME}].fuzzytime({$VEEAM_BACKUP_NODATA})}=0</expression>
+                            <recovery_mode>0</recovery_mode>
+                            <recovery_expression/>
+                            <name>Veeam File Share Backup job {#FILESHAREBACKUPJOBNAME} - last job was &gt;{$VEEAM_BACKUP_NODATA} ago</name>
                             <correlation_mode>0</correlation_mode>
                             <correlation_tag/>
                             <url/>
