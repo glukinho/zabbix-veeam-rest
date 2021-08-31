@@ -12,7 +12,7 @@ REST queries are sent from Zabbix server (or proxy), no scripts or zabbix agent 
 Developed and tested on **Zabbix 3.4.15** and **Veeam Backup & Replication 10** and **11**.
 
 Discovered items:
-* Backup jobs, backup copy jobs and agent backup jobs:
+* Backup jobs, backup copy jobs, agent backup, file share backup jobs:
   * Last job result/duration/date (for each discovered job)
 * Replication jobs:
   * Last SUCCESSFUL job result/date (for each discovered job)
@@ -46,7 +46,7 @@ Discovered items:
   
 1. Wait for items discovery.
 
-## Backup, backup copy and agent jobs
+## Backup, Backup Copy, Agent and File Share Backup jobs
 Trigger rises if last job was not successful or last job was over `{$VEEAM_BACKUP_NODATA}` ago.
 
 ## Replica jobs
