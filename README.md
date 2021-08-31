@@ -1,7 +1,7 @@
 # zabbix-veeam-rest
 Zabbix template and php script for monitoring Veeam B&R jobs and repositories.
 
-## Now supports Veeam B&R 10 with HTTPS
+## Now supports Veeam B&R 10/11 with HTTPS
 The script was re-created from scratch, now it supports Veeam 10 with HTTPS API, implements OOP logic and good logging.
 
 ## How it works
@@ -9,7 +9,7 @@ It uses Veeam REST API: https://helpcenter.veeam.com/docs/backup/rest/overview.h
 
 REST queries are sent from Zabbix server (or proxy), no scripts or zabbix agent setup is needed on Veeam host itself.
 
-Developed and tested on **Zabbix 3.4.15** and **Veeam Backup & Replication 10**.
+Developed and tested on **Zabbix 3.4.15** and **Veeam Backup & Replication 10** and **11**.
 
 Discovered items:
 * Backup jobs, backup copy jobs and agent backup jobs:
