@@ -2,7 +2,7 @@
 <?php
 
 // zabbix-veeam-rest
-// ver 0.4
+// ver 0.5
 // glukinho@gmail.com
 // https://github.com/glukinho/zabbix-veeam-rest
 
@@ -317,6 +317,32 @@ Class DiscoverBackupJobsAction extends Action
 }
 
 
+Class DiscoverFileShareBackupJobsAction extends Action
+{
+    protected $veeamEndpoint = 'query';
+    protected $veeamQueryArr = [
+        'type' => 'NasJob',
+        // 'filter' => "JobType==Backup,JobType==BackupCopy",
+        'format' => 'entities',
+    ];
+
+    public function createResponseForZabbix()
+    {
+        $responseForZabbixObj = new ZabbixDiscoveryResponse;
+
+        foreach($this->responseFromVeeam->getData()->Entities->NASJobs->NASJobs as $j) {
+            $responseForZabbixObj
+                ->addRow( [
+                    '{#FILESHAREBACKUPJOBNAME}' => $j->Name,
+                    // '{#BACKUPJOBTYPE}' => $j->JobType,
+                ] );
+        }
+
+        return $responseForZabbixObj;
+    }
+}
+
+
 Class DiscoverReplicaJobsAction extends Action
 {
     protected $veeamEndpoint = 'query';
@@ -332,7 +358,13 @@ Class DiscoverReplicaJobsAction extends Action
 
         foreach($this->responseFromVeeam->getData()->Entities->Jobs->Jobs as $j) {
             $html = new DOMDocument;
-            $html->loadHTML($j->Description);
+			
+			// b.taran 2021-08-31
+			$htmltext = empty($j->Description) ? "dummy text" : $j->Description;
+			// end
+			
+            // $html->loadHTML($j->Description);
+            $html->loadHTML($htmltext);
             $vars = $html->getElementsByTagName('zabbix_replica_time');
 
             $responseForZabbixObj
