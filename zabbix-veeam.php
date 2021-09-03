@@ -160,7 +160,7 @@ Class VeeamConnector
     private function _handleCurlHeaders($ch, $headerLine)
     {
         $headerArr = explode(": ", $headerLine);
-        if ($headerArr[0] == 'X-RestSvcSessionId') $this->restsvcsessionid = trim($headerArr[1]);
+        if (strtolower($headerArr[0]) == 'x-restsvcsessionid') $this->restsvcsessionid = trim($headerArr[1]);
         return strlen($headerLine);
     }
 
