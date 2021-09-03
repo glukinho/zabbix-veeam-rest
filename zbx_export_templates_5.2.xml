@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>5.2</version>
+    <date>2021-09-03T08:09:16Z</date>
+    <groups>
+        <group>
+            <name>Templates</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template Veeam REST</template>
+            <name>Template Veeam REST</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>Veeam Agent Jobs</name>
+                </application>
+                <application>
+                    <name>Veeam Backup Jobs</name>
+                </application>
+                <application>
+                    <name>Veeam File Share Backup Jobs</name>
+                </application>
+                <application>
+                    <name>Veeam Replica Jobs</name>
+                </application>
+                <application>
+                    <name>Veeam Repositories</name>
+                </application>
+            </applications>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Veeam Agent Jobs</name>
+                    <type>EXTERNAL</type>
+                    <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;discoverAgentJobs&quot;]</key>
+                    <delay>5m</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Veeam Agent Job {#AGENTJOBNAME} last date</name>
+                            <type>DEPENDENT</type>
+                            <key>veeam.agent.job.last.date[{#AGENTJOBNAME}]</key>
+                            <delay>0</delay>
+                            <units>unixtime</units>
+                            <applications>
+                                <application>
+                                    <name>Veeam Agent Jobs</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Veeam jobs result</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.EndTimeEpoch</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#AGENTJOBNAME}&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam Agent Job {#AGENTJOBNAME} last duration</name>
+                            <type>DEPENDENT</type>
+                            <key>veeam.agent.job.last.duration[{#AGENTJOBNAME}]</key>
+                            <delay>0</delay>
+                            <units>s</units>
+                            <applications>
+                                <application>
+                                    <name>Veeam Agent Jobs</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Veeam jobs result</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.Duration</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#AGENTJOBNAME}&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam Agent Job {#AGENTJOBNAME} last result</name>
+                            <type>DEPENDENT</type>
+                            <key>veeam.agent.job.last.result[{#AGENTJOBNAME}]</key>
+                            <delay>0</delay>
+                            <applications>
+                                <application>
+                                    <name>Veeam Agent Jobs</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Veeam jobs result</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.ResultNum</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#AGENTJOBNAME}&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;0</expression>
+                                    <name>Veeam Agent job {#AGENTJOBNAME} - last job not successful</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam Agent job {#AGENTJOBNAME} last job info</name>
+                            <type>EXTERNAL</type>
+                            <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#AGENTJOBNAME}&quot;]</key>
+                            <delay>5m</delay>
+                            <history>1d</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Veeam Agent Jobs</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Veeam Backup Jobs</name>
+                    <type>EXTERNAL</type>
+                    <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;discoverBackupJobs&quot;]</key>
+                    <delay>5m</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Veeam Backup job {#BACKUPJOBNAME} last job date</name>
+                            <type>DEPENDENT</type>
+                            <key>veeam.backup.job.last.date[{#BACKUPJOBNAME}]</key>
+                            <delay>0</delay>
+                            <units>unixtime</units>
+                            <applications>
+                                <application>
+                                    <name>Veeam Backup Jobs</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.EndTimeEpoch</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#BACKUPJOBNAME}&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{fuzzytime({$VEEAM_BACKUP_NODATA})}=0</expression>
+                                    <name>Veeam Backup job {#BACKUPJOBNAME} - last job was &gt;{$VEEAM_BACKUP_NODATA} ago</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam Backup job {#BACKUPJOBNAME} last job duration</name>
+                            <type>DEPENDENT</type>
+                            <key>veeam.backup.job.last.duration[{#BACKUPJOBNAME}]</key>
+                            <delay>0</delay>
+                            <units>s</units>
+                            <applications>
+                                <application>
+                                    <name>Veeam Backup Jobs</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.Duration</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#BACKUPJOBNAME}&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam Backup job {#BACKUPJOBNAME} last job result</name>
+                            <type>DEPENDENT</type>
+                            <key>veeam.backup.job.last.result[{#BACKUPJOBNAME}]</key>
+                            <delay>0</delay>
+                            <applications>
+                                <application>
+                                    <name>Veeam Backup Jobs</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Veeam jobs result</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.ResultNum</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#BACKUPJOBNAME}&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;0</expression>
+                                    <name>Veeam Backup job {#BACKUPJOBNAME} - last job not successful</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam {#BACKUPJOBTYPE} job {#BACKUPJOBNAME} last job info</name>
+                            <type>EXTERNAL</type>
+                            <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#BACKUPJOBNAME}&quot;]</key>
+                            <delay>5m</delay>
+                            <history>1d</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Veeam Backup Jobs</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Veeam File Share Backup Jobs</name>
+                    <type>EXTERNAL</type>
+                    <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;discoverFileShareBackupJobs&quot;]</key>
+                    <delay>5m</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Veeam File Share Backup job {#FILESHAREBACKUPJOBNAME} last job date</name>
+                            <type>DEPENDENT</type>
+                            <key>veeam.filesharebackup.job.last.date[{#FILESHAREBACKUPJOBNAME}]</key>
+                            <delay>0</delay>
+                            <units>unixtime</units>
+                            <applications>
+                                <application>
+                                    <name>Veeam File Share Backup Jobs</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.EndTimeEpoch</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#FILESHAREBACKUPJOBNAME}&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{fuzzytime({$VEEAM_BACKUP_NODATA})}=0</expression>
+                                    <name>Veeam File Share Backup job {#FILESHAREBACKUPJOBNAME} - last job was &gt;{$VEEAM_BACKUP_NODATA} ago</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam File Share Backup job {#FILESHAREBACKUPJOBNAME} last job duration</name>
+                            <type>DEPENDENT</type>
+                            <key>veeam.filesharebackup.job.last.duration[{#FILESHAREBACKUPJOBNAME}]</key>
+                            <delay>0</delay>
+                            <units>s</units>
+                            <applications>
+                                <application>
+                                    <name>Veeam File Share Backup Jobs</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.Duration</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#FILESHAREBACKUPJOBNAME}&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam File Share Backup job {#FILESHAREBACKUPJOBNAME} last job result</name>
+                            <type>DEPENDENT</type>
+                            <key>veeam.filesharebackup.job.last.result[{#FILESHAREBACKUPJOBNAME}]</key>
+                            <delay>0</delay>
+                            <applications>
+                                <application>
+                                    <name>Veeam File Share Backup Jobs</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>Veeam jobs result</name>
+                            </valuemap>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.ResultNum</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#FILESHAREBACKUPJOBNAME}&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&gt;0</expression>
+                                    <name>Veeam File Share Backup job {#FILESHAREBACKUPJOBNAME} - last job not successful</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam File Share Backup job {#FILESHAREBACKUPJOBNAME} last job info</name>
+                            <type>EXTERNAL</type>
+                            <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastBackupJobInfo&quot;,&quot;{#FILESHAREBACKUPJOBNAME}&quot;]</key>
+                            <delay>5m</delay>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Veeam File Share Backup Jobs</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Veeam Replica Jobs</name>
+                    <type>EXTERNAL</type>
+                    <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;discoverReplicaJobs&quot;]</key>
+                    <delay>5m</delay>
+                    <filter>
+                        <conditions>
+                            <condition>
+                                <macro>{#REPLICAJOBSCHEDULE}</macro>
+                                <value>true</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Veeam Replica job {#REPLICAJOBNAME} - last successful job date</name>
+                            <type>DEPENDENT</type>
+                            <key>veeam.replica.job.last.successful.date[{#REPLICAJOBNAME}]</key>
+                            <delay>0</delay>
+                            <units>unixtime</units>
+                            <applications>
+                                <application>
+                                    <name>Veeam Replica Jobs</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.EndTimeEpoch</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastReplicaJobInfo&quot;,&quot;{#REPLICAJOBNAME}&quot;]</key>
+                            </master_item>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{fuzzytime({#REPLICAJOBTIME})}=0</expression>
+                                    <name>Veeam Replica job {#REPLICAJOBNAME} - last successful job was &gt;{$VEEAM_REPLICA_FAILED_TIME} ago</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam Replica job {#REPLICAJOBNAME} - last successful job duration</name>
+                            <type>DEPENDENT</type>
+                            <key>veeam.replica.job.last.successful.duration[{#REPLICAJOBNAME}]</key>
+                            <delay>0</delay>
+                            <units>s</units>
+                            <applications>
+                                <application>
+                                    <name>Veeam Replica Jobs</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.Duration</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastReplicaJobInfo&quot;,&quot;{#REPLICAJOBNAME}&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam Replica job {#REPLICAJOBNAME} - last job info</name>
+                            <type>EXTERNAL</type>
+                            <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getLastReplicaJobInfo&quot;,&quot;{#REPLICAJOBNAME}&quot;]</key>
+                            <delay>5m</delay>
+                            <history>1d</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Veeam Replica Jobs</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Veeam Repositories</name>
+                    <type>EXTERNAL</type>
+                    <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;discoverRepo&quot;]</key>
+                    <delay>5m</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Veeam repo {#REPONAME} capacity</name>
+                            <type>DEPENDENT</type>
+                            <key>veeam.repo.capacity[{#REPONAME}]</key>
+                            <delay>0</delay>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Veeam Repositories</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.Capacity</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getRepoInfo&quot;,&quot;{#REPONAME}&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam repo {#REPONAME} free space</name>
+                            <type>DEPENDENT</type>
+                            <key>veeam.repo.freespace[{#REPONAME}]</key>
+                            <delay>0</delay>
+                            <units>B</units>
+                            <applications>
+                                <application>
+                                    <name>Veeam Repositories</name>
+                                </application>
+                            </applications>
+                            <preprocessing>
+                                <step>
+                                    <type>JSONPATH</type>
+                                    <parameters>
+                                        <parameter>$.FreeSpace</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <master_item>
+                                <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getRepoInfo&quot;,&quot;{#REPONAME}&quot;]</key>
+                            </master_item>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam repo {#REPONAME} free space %</name>
+                            <type>CALCULATED</type>
+                            <key>veeam.repo.freespace_percentage[{#REPONAME}]</key>
+                            <units>%</units>
+                            <params>100*last(&quot;veeam.repo.freespace[{#REPONAME}]&quot;)/last(&quot;veeam.repo.capacity[{#REPONAME}]&quot;)</params>
+                            <applications>
+                                <application>
+                                    <name>Veeam Repositories</name>
+                                </application>
+                            </applications>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <expression>{last()}&lt;10</expression>
+                                    <name>Veeam repo {#REPONAME} - less 10% free space left</name>
+                                    <priority>WARNING</priority>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Veeam repo {#REPONAME} get info</name>
+                            <type>EXTERNAL</type>
+                            <key>zabbix-veeam.php[&quot;{$VEEAM_URL}&quot;,&quot;getRepoInfo&quot;,&quot;{#REPONAME}&quot;]</key>
+                            <delay>10m</delay>
+                            <history>3d</history>
+                            <trends>0</trends>
+                            <value_type>TEXT</value_type>
+                            <applications>
+                                <application>
+                                    <name>Veeam Repositories</name>
+                                </application>
+                            </applications>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$VEEAM_BACKUP_NODATA}</macro>
+                    <value>36h</value>
+                </macro>
+                <macro>
+                    <macro>{$VEEAM_REPLICA_FAILED_TIME}</macro>
+                    <value>6h</value>
+                </macro>
+                <macro>
+                    <macro>{$VEEAM_URL}</macro>
+                    <value>https://veeam:9398/api/</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+    <value_maps>
+        <value_map>
+            <name>Veeam jobs result</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Success</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>Warning</newvalue>
+                </mapping>
+                <mapping>
+                    <value>2</value>
+                    <newvalue>Failed</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
